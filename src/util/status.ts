@@ -160,7 +160,7 @@ export const parseLine = (line: string): StatusRow => {
     };
   }
 
-  let remainingLine = line.substring(command.length);
+  let remainingLine = prefixLine.substring(command.length);
   let segments = remainingLine.split(",");
 
   let indexes: string[] = [];

@@ -72,7 +72,7 @@ const displayInfo = ({
       };
     case "C":
       return {
-        title: `Cheat option ${segments.length > 0 ? segments[0] : "unamed"}`,
+        title: `Cheat option: ${segments.length > 0 ? segments[0] : "unamed"}`,
         options,
       };
     case "CHEAT":
@@ -92,6 +92,8 @@ const displayInfo = ({
 
       if (command === "FC") {
         localOptions.push("Remember file after loading");
+      } else if (command === "FS") {
+        localOptions.push("Save supported");
       }
 
       if (indexes.length > 0) {
