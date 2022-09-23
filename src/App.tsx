@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ChangeEvent, useState } from "react";
+import { InvalidRowComponent } from "./InvalidRowComponent";
+import { StatusRowComponent } from "./StatusRowComponent";
+import { InvalidRowError, parseConfig, StatusRow } from "./util/status";
+import "./index.css";
 
-function App() {
+export const App = () => {
+  const [state, setState] = useState<StatusRow[]>();
+
+  const onTextChange = (input: ChangeEvent<HTMLTextAreaElement>) => {
+    setState(parseConfig(input.target.value));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="textareaWrapper">
+        <div>Enter CONF_STR:</div>
+        <textarea onChange={onTextChange}></textarea>
+      </div>
+      <div>
+        <h2>Configuration</h2>
+        <div>
+          {state?.map((row, i) => (
+            // TODO: Use real key?
+            <div key={i}>
+              <StatusRowComponent row={row} />
+              {/* {row.kind === "ok" ? (
+                <StatusRowComponent row={row.value} />
+              ) : (
+                <InvalidRowComponent error={row.value} />
+              )} */}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
-}
-
-export default App;
+};
