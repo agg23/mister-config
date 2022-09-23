@@ -204,6 +204,7 @@ const prefixDescription = (
   title: string;
   status?: StatusRegRange;
 }> =>
+  // eslint-disable-next-line array-callback-return
   prefixes.map((entry) => {
     switch (entry.prefix) {
       case "D":

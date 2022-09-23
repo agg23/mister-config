@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
-import { InvalidRowComponent } from "./InvalidRowComponent";
 import { StatusRowComponent } from "./StatusRowComponent";
-import { InvalidRowError, parseConfig, StatusRow } from "./util/status";
-import "./index.css";
+import { parseConfig } from "./util/status";
 import { buildInfo, StatusRowInfo } from "./util/buildInfo";
 import { buildStatusMap } from "./util/map";
 import { StatusMap } from "./StatusMap";
+
+import "./index.css";
 
 interface State {
   rows: StatusRowInfo[];
