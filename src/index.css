@@ -17,10 +17,30 @@ textarea {
   resize: none;
 }
 
+.config {
+  position: relative;
+}
+
 .config pre {
   display: inline-block;
 }
 
 pre {
   margin: 0;
+}
+
+a, a:visited {
+  color: blue;
+}
+
+.mapRow div,a {
+  display: inline-block;
+  width: 22px;
+  text-align: right;
+}
+
+.backToTop {
+  position: absolute;
+  right: 50px;
+  bottom: 10px;
 }

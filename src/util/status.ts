@@ -1,5 +1,3 @@
-import { Result } from "./types";
-
 export interface StatusRow {
   command: Command | "option";
   prefixes?: PrefixEntry[];
@@ -9,6 +7,7 @@ export interface StatusRow {
     segments: string[];
   };
   config: string;
+  lineNumber: number;
 }
 
 export interface PrefixEntry {
@@ -31,23 +30,6 @@ export type StatusRegRange =
       endIndex: number;
     };
 
-// export type StatusRow = {
-//   command: 'C';
-//   text?: string;
-// } | {
-//   command: 'CHEAT'
-// } | {
-//   command: 'D',
-//   index: string;
-// } | {
-//   command: 'd',
-//   index: string;
-// } | {
-//   command: 'DIP'
-// } | {
-//   command: "F"
-// }
-
 const wrapperRegex = /parameter\s*.*\s*=\s*{?((.|\n|\r)*)}?.*/gm;
 const lineRegex = /\s*"(.*);"\s*/;
 
@@ -61,7 +43,7 @@ export const parseConfig = (statusConfig: string): StatusRow[] => {
   const cleanedString =
     !!matches && matches.length > 1 ? matches[1].trim() : statusConfig;
 
-  return cleanedString.split("\n").flatMap((line) => {
+  return cleanedString.split("\n").flatMap((line, i) => {
     const lineMatches = lineRegex.exec(line);
 
     const cleanedLine =
@@ -69,7 +51,7 @@ export const parseConfig = (statusConfig: string): StatusRow[] => {
         ? lineMatches[1].trim()
         : line.trim();
 
-    return cleanedLine.length > 0 ? [parseLine(cleanedLine)] : [];
+    return cleanedLine.length > 0 ? [parseLine(cleanedLine, i)] : [];
   });
 };
 
@@ -84,7 +66,7 @@ const knownCommands = [
   "FS",
   "F",
   "O",
-  "o", // Not in docs, but appears to be used
+  "o",
   "P",
   "R",
   "r",
@@ -142,7 +124,7 @@ const buildPrefixes = (
   ]);
 };
 
-export const parseLine = (line: string): StatusRow => {
+export const parseLine = (line: string, lineNumber: number): StatusRow => {
   const { prefixes, line: prefixLine } = buildPrefixes(line);
 
   const command = knownCommands.find((command) =>
@@ -157,6 +139,7 @@ export const parseLine = (line: string): StatusRow => {
         segments: prefixLine.split(","),
       },
       config: line,
+      lineNumber,
     };
   }
 
@@ -182,5 +165,6 @@ export const parseLine = (line: string): StatusRow => {
       segments: segments.slice(1),
     },
     config: line,
+    lineNumber,
   };
 };
