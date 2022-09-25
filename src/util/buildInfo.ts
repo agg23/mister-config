@@ -16,11 +16,11 @@ const fileExtensionRegex = /.{1,3}/g;
 const indexToNumber = (index: string): number => {
   const code = index.charCodeAt(0);
   if (code >= 97) {
-    // Lowercase letter
-    return code - 97;
+    // Lowercase letter, start at 10 + 22 + 10
+    return code - 97 + 10 + 22 + 10;
   } else if (code >= 65) {
-    // Uppercase letter
-    return code - 65;
+    // Uppercase letter, start at 10 (after 9)
+    return code - 65 + 10;
   } else if (code >= 48) {
     // Number
     return code - 48;
