@@ -31,7 +31,7 @@ export type StatusRegRange =
     };
 
 const wrapperRegex =
-  /(?:(?:parameter|localparam)\s*?.*?\s*?=\s*?{?)?([\S\s]*)}?/m;
+  /(?:(?:parameter|localparam)\s*?.*?\s*?=\s*?{)?([\S\s]*)}?/m;
 const lineRegex = /\s*"(.*);"\s*/;
 
 export interface InvalidRowError {
