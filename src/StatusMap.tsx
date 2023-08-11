@@ -39,11 +39,12 @@ const MapRow: React.FC<{
         const info = map.get(index);
 
         if (!info) {
-          return <div>{index}</div>;
+          return <div key={index}>{index}</div>;
         }
 
         return (
           <a
+            key={index}
             href={`#${info.config}`}
             title={`${info.config} (line ${info.lineNumber})`}
           >

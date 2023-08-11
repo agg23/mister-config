@@ -30,7 +30,8 @@ export type StatusRegRange =
       endIndex: number;
     };
 
-const wrapperRegex = /parameter\s*.*\s*=\s*{?((.|\n|\r)*)}?.*/gm;
+const wrapperRegex =
+  /(?:(?:parameter|localparam)\s*?.*?\s*?=\s*?{?)?([\S\s]*)}?/m;
 const lineRegex = /\s*"(.*);"\s*/;
 
 export interface InvalidRowError {
@@ -44,6 +45,11 @@ export const parseConfig = (statusConfig: string): StatusRow[] => {
     !!matches && matches.length > 1 ? matches[1].trim() : statusConfig;
 
   return cleanedString.split("\n").flatMap((line, i) => {
+    if (i === 0) {
+      // First entry is the name of the core, which isn't relevant
+      return [];
+    }
+
     const lineMatches = lineRegex.exec(line);
 
     const cleanedLine =
@@ -85,8 +91,8 @@ const knownCommands = [
 
 const knownPrefixes = ["D", "d", "H", "h", "P"] as const;
 
-export type Command = typeof knownCommands[number];
-export type Prefix = typeof knownPrefixes[number];
+export type Command = (typeof knownCommands)[number];
+export type Prefix = (typeof knownPrefixes)[number];
 
 const buildPrefixes = (
   line: string,

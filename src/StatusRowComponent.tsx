@@ -25,7 +25,7 @@ export const StatusRowComponent: React.FC<StatusRowComponentProps> = ({
       {!!options && (
         <ul>
           {options?.map((option) => (
-            <li dangerouslySetInnerHTML={{ __html: option }}></li>
+            <li key={option} dangerouslySetInnerHTML={{ __html: option }}></li>
           ))}
         </ul>
       )}
@@ -34,7 +34,10 @@ export const StatusRowComponent: React.FC<StatusRowComponentProps> = ({
           <h4>Prefix</h4>
           <ul>
             {prefixOptions?.map((option) => (
-              <li dangerouslySetInnerHTML={{ __html: option }}></li>
+              <li
+                key={option}
+                dangerouslySetInnerHTML={{ __html: option }}
+              ></li>
             ))}
           </ul>
         </div>
