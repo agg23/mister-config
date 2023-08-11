@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mister-config/static/css/main.ac84254c.css",
+    "main.js": "/mister-config/static/js/main.9d830c33.js",
+    "index.html": "/mister-config/index.html",
+    "main.ac84254c.css.map": "/mister-config/static/css/main.ac84254c.css.map",
+    "main.9d830c33.js.map": "/mister-config/static/js/main.9d830c33.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ac84254c.css",
+    "static/js/main.9d830c33.js"
+  ]
+}
